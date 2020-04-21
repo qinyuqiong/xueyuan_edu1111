@@ -15,4 +15,10 @@ import com.online.edu.eduservice.entity.form.CourseInfoForm;
 public interface EduCourseService extends IService<EduCourse> {
 
     String insertCourseInfo(CourseInfoForm courseInfoForm);
+
+    CourseInfoForm getIdCourse(String id);
+
+    Boolean updateCourse(CourseInfoForm courseInfoForm);
+
+    Boolean removeCourseId(String id);
 }

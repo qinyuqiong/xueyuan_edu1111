@@ -22,6 +22,47 @@ public class EduCourseController {
     @Autowired
     private EduCourseService eduCourseService;
 
+    /**
+     * 课程删除
+     * @param id
+     * @return
+     */
+    @DeleteMapping("delectCourse/{id}")
+    public R delectCourse(@PathVariable String id){
+        Boolean flag = eduCourseService.removeCourseId(id);
+        if (flag){
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
+
+    /**
+     * 修改课程信息
+     * @return
+     */
+    @PostMapping("updateCourseInfo/{id}")
+    public R updateCourseInfo(@PathVariable String id , @RequestBody CourseInfoForm courseInfoForm){
+        Boolean flag = eduCourseService.updateCourse(courseInfoForm);
+        if (flag == true){
+            return R.ok();
+        }else {
+            return R.error();
+        }
+    }
+
+    /**
+     * 根据id查询课程信息
+     * @param id
+     * @return
+     */
+    @PostMapping("getCourseInfo/{id}")
+    public R getCourseInfo(@PathVariable String id){
+        CourseInfoForm courseInfoForm = eduCourseService.getIdCourse(id);
+        return R.ok().data("courseInfoForm" , courseInfoForm);
+    }
+
+
     //1 添加课程信息的方法
     @PostMapping
     public R addCourseInfo(@RequestBody CourseInfoForm courseInfoForm){

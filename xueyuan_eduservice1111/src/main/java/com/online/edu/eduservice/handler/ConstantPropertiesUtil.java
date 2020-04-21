@@ -31,11 +31,18 @@ public class ConstantPropertiesUtil implements InitializingBean {
     @Value("${aliyun.oss.file.bucketname}")
     private String bucketname;
 
+
+    //读取要存储的文件夹
+    @Value("${aliyun.oss.file.host}")
+    private String host;
+
     //定义常量
     public static String ENDPOINT;
     public static String KEYID;
     public static String KEYSECRET;
     public static String BUCKETNAME;
+    public static String HOST;
+
 
     /**
      * 服务器启动的时候ConstantPropertiesUtil初始化
@@ -48,5 +55,6 @@ public class ConstantPropertiesUtil implements InitializingBean {
         KEYID = keyid;
         KEYSECRET = keysecret;
         BUCKETNAME = bucketname;
+        HOST = host;
     }
 }

@@ -5,12 +5,10 @@ import com.aliyun.oss.OSSClientBuilder;
 import com.online.edu.eduservice.handler.ConstantPropertiesUtil;
 import com.online.edu.xueyuan_common.R;
 import org.joda.time.DateTime;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
@@ -26,7 +24,7 @@ import java.util.UUID;
 public class FileUploadController {
     //上传讲师头像的方法
     @PostMapping("upload")
-    public R uploadTeacherImg(@RequestParam("file") MultipartFile file){
+    public R uploadTeacherImg(@RequestParam("file") MultipartFile file ,@RequestParam(value = "host",required = false) String host){
 
         // Endpoint以杭州为例，其它Region请按实际情况填写。
         String endpoint = ConstantPropertiesUtil.ENDPOINT;
@@ -34,6 +32,7 @@ public class FileUploadController {
         String accessKeyId = ConstantPropertiesUtil.KEYID;
         String accessKeySecret = ConstantPropertiesUtil.KEYSECRET;
         String yourBucketName = ConstantPropertiesUtil.BUCKETNAME;
+        String hostName = ConstantPropertiesUtil.HOST;
 
     try {
         //1.获取上传文件MultipartFile file
@@ -48,7 +47,14 @@ public class FileUploadController {
 
         //拼接文件完整名称
         //2019/04/03/sdfsd01.txt
-        filename = filePath+"/"+filename;
+        //如果上传头像 host 里面为空，如果上传封面host有值
+        //如果为空变量的值不变，存入career.有值就存入值中的指的文件夹
+
+        if (!StringUtils.isEmpty(host)){
+            hostName = host;
+        }
+
+        filename = filePath+"/"+hostName+"/"+filename;
 
         InputStream inputStream = file.getInputStream();
 
@@ -62,7 +68,7 @@ public class FileUploadController {
         ossClient.shutdown();
 
         //返回上传之后oss存储路径
-        //https://xueyuan-edudome111.oss-cn-hangzhou.aliyuncs.com/1.txt
+        //https://xueyuan-edudome111.oss-cn-hangzhou.aliyuncs.com/2019/1/4/host/1.txt
         String path = "https://"+yourBucketName+"."+endpoint+"/"+filename;
         return R.ok().data("imgurl",path);
 
