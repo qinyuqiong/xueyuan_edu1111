@@ -1,6 +1,8 @@
 package com.online.edu.eduservice.controller;
 
 
+import com.online.edu.eduservice.entity.EduCourse;
+import com.online.edu.eduservice.entity.dto.CourseInfoDto;
 import com.online.edu.eduservice.entity.form.CourseInfoForm;
 import com.online.edu.eduservice.service.EduCourseService;
 import com.online.edu.xueyuan_common.R;
@@ -21,6 +23,33 @@ import org.springframework.web.bind.annotation.*;
 public class EduCourseController {
     @Autowired
     private EduCourseService eduCourseService;
+
+    /**
+     * 更改课程状态
+     * @param courseId
+     * @return
+     */
+    @GetMapping("publishCourse/{courseId}")
+    public R publishCourse(@PathVariable String courseId){
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(courseId);
+        eduCourse.setStatus("Normal");
+        boolean result = eduCourseService.updateById(eduCourse);
+        if (result == true){
+            return R.ok();
+        }
+        return R.error();
+    }
+
+    /**
+     * 查询课程所有信息
+     * @return
+     */
+    @GetMapping("getAllCourseInfo/{courseId}")
+    public R getAllCourseInfo(@PathVariable String courseId){
+        CourseInfoDto courseInfoDto = eduCourseService.getCourseInfoAll(courseId);
+        return R.ok().data("courseInfoDto",courseInfoDto);
+    }
 
     /**
      * 课程删除
