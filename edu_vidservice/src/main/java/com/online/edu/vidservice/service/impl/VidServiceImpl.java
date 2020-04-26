@@ -9,8 +9,11 @@ import com.aliyuncs.vod.model.v20170321.DeleteVideoResponse;
 import com.online.edu.vidservice.service.VidService;
 import com.online.edu.vidservice.utils.AliyunVodSDKUtils;
 import com.online.edu.vidservice.utils.ConstantPropertiesUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @version 1.0 2020/4/25
@@ -57,5 +60,23 @@ public class VidServiceImpl implements VidService {
 
         }
 
+    }
+
+    @Override
+    public void deleteMoreVideo(List<String> videoList) {
+        try {
+            //初始化
+            DefaultAcsClient client = AliyunVodSDKUtils.initVodClient(ConstantPropertiesUtil.ACCESS_KEY_ID, ConstantPropertiesUtil.ACCESS_KEY_SECRET);
+            //创建删除视频请求对象
+            DeleteVideoRequest request = new DeleteVideoRequest();
+            //设置删除视频id
+            //将集合改为string类型用"," 分割（1,2,3,4）
+            String join = StringUtils.join(videoList.toArray(), ",");
+            request.setVideoIds(join);
+            //调用方法实现删除
+            DeleteVideoResponse response = client.getAcsResponse(request);
+        }catch (Exception e){
+
+        }
     }
 }

@@ -20,6 +20,12 @@
 
     <dependencies>
 
+        <!--服务注册-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+
         <!--将common公共组件加入到此项目中-->
         <dependency>
             <groupId>com.online.edu</groupId>

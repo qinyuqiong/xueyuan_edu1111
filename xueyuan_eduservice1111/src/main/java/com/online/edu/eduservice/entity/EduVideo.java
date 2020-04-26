@@ -30,7 +30,7 @@ public class EduVideo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "视频ID")
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
     @ApiModelProperty(value = "课程ID")
@@ -74,8 +74,6 @@ public class EduVideo implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date gmtModified;
 
-    //视频名称
-    private String videoOriginalName;
 
 
 }

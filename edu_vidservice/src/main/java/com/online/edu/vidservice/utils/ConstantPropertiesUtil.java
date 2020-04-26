@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
+ * 获取配置文件的值
  * @version 1.0 2020/4/25
  * @auther LENOVO
  */

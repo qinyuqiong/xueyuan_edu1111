@@ -6,6 +6,10 @@
         <module>xueyuan_eduservice1111</module>
         <module>xueyuan_common1111</module>
         <module>edu_vidservice</module>
+        <module>edu_ekservice</module>
+        <module>edu_staservice</module>
+        <module>edu_ucservice</module>
+        <module>edu_ekservice</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -49,6 +53,15 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!--Spring Cloud,注意版本号，具体对应的版本到官网查询-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Hoxton.SR2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <!--mybatis-plus 持久层-->
             <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
