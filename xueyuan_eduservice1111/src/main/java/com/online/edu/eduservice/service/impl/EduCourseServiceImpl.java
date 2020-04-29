@@ -1,9 +1,11 @@
 package com.online.edu.eduservice.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.online.edu.eduservice.entity.EduCourse;
 import com.online.edu.eduservice.entity.EduCourseDescription;
 import com.online.edu.eduservice.entity.dto.CourseInfoDto;
+import com.online.edu.eduservice.entity.dto.TeacherAllInfoDto;
 import com.online.edu.eduservice.entity.form.CourseInfoForm;
 import com.online.edu.eduservice.handler.EduException;
 import com.online.edu.eduservice.mapper.EduCourseMapper;
@@ -14,6 +16,10 @@ import com.online.edu.eduservice.service.EduVideoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -134,5 +140,36 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
   public CourseInfoDto getCourseInfoAll(String courseId) {
     CourseInfoDto courseInfoAll = baseMapper.getCourseInfoAll(courseId);
     return courseInfoAll;
+  }
+
+  @Override
+  public Map<String, Object> listCoursePage(Page<EduCourse> pageCourse) {
+    //调用方法分页查询，通过pageTeacher对象分页之后的数据
+    baseMapper.selectPage(pageCourse,null);
+    //从pageTeacher分页数据获取出来，放到map集合
+    List<EduCourse> records = pageCourse.getRecords();
+    long pages = pageCourse.getPages();
+    long current = pageCourse.getCurrent();
+    long size = pageCourse.getSize();
+    long total = pageCourse.getTotal();
+    boolean hasNext = pageCourse.hasNext();
+    boolean hasPrevious = pageCourse.hasPrevious();
+
+    Map<String,Object> map = new HashMap();
+
+    map.put("items",records);
+    map.put("total",total);
+    map.put("size",size);
+    map.put("pages",pages);
+    map.put("current",current);
+    map.put("hasNext",hasNext);
+    map.put("hasPrevious",hasPrevious);
+    return map;
+  }
+
+  @Override
+  public TeacherAllInfoDto getTeacherAllInfo(String id) {
+    TeacherAllInfoDto teacherAllInfo = baseMapper.getTeacherAllInfo(id);
+    return teacherAllInfo;
   }
 }

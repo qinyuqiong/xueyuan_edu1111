@@ -10,6 +10,7 @@
         <module>edu_staservice</module>
         <module>edu_ucservice</module>
         <module>edu_ekservice</module>
+        <module>edu_getway</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

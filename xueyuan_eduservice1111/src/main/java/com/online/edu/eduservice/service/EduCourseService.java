@@ -1,9 +1,13 @@
 package com.online.edu.eduservice.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.online.edu.eduservice.entity.EduCourse;
 import com.online.edu.eduservice.entity.dto.CourseInfoDto;
+import com.online.edu.eduservice.entity.dto.TeacherAllInfoDto;
 import com.online.edu.eduservice.entity.form.CourseInfoForm;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -24,4 +28,8 @@ public interface EduCourseService extends IService<EduCourse> {
     Boolean removeCourseId(String id);
 
     CourseInfoDto getCourseInfoAll(String courseId);
+
+    Map<String, Object> listCoursePage(Page<EduCourse> pageCourse);
+
+    TeacherAllInfoDto getTeacherAllInfo(String id);
 }
